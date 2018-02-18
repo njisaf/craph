@@ -4,7 +4,9 @@
   "description": "This is madness",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copyassets": "copyfiles ./fonts/**/* ./images/**/* ./vendors/**/* ./build/",
+    "build": "rm -rf build & npm run copyassets & webpack -p",
+    "start": "npm run copyassets & webpack-dev-server --hot --open --env=dev --progress"
   },
   "repository": {
     "type": "git",
