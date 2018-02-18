@@ -38,7 +38,7 @@ module.exports = {
 	devtool: 'eval',
 	devServer: {
 		https: true,
-		port: 4040,
+		port: 8080,
     disableHostCheck: true,
 		historyApiFallback: true,
 		hot: true,
@@ -134,7 +134,7 @@ module.exports = {
 		}),
 
 		new HtmlWebpackPlugin({
-			template: './index.dev.ejs',
+			template: './index.ejs',
 			hash: false
 		}),
 

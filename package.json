@@ -1,10 +1,10 @@
 {
-  "name": "Project Craph",
+  "name": "Craph",
   "version": "0.0.1",
   "description": "This is madness",
   "main": "index.js",
   "scripts": {
-    "copyassets": "copyfiles ./fonts/**/* ./images/**/* ./vendors/**/* ./build/",
+    "copyassets": "copyfiles ./fonts/**/* ./images/**/* ./build/",
     "build": "rm -rf build & npm run copyassets & webpack -p",
     "start": "npm run copyassets & webpack-dev-server --hot --open --env=dev --progress"
   },
