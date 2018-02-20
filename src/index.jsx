@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom';
 import {AppContainer, module, render} from 'react-hot-loader';
 import {Provider, observer} from 'mobx-react'
 import {masterStore} from './core/stores/master.store';
+import AblePlayer from './scripts/AblePlayer';
 
 @observer
 class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Hello World</h1>
-      </div>
+      <Provider store={masterStore}>
+        <div>
+          <h1>Hello World</h1>
+          <AblePlayer></AblePlayer>
+        </div>
+      </Provider>
     )
   }
 
