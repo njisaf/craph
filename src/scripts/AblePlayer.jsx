@@ -150,7 +150,26 @@ export default class AblePlayer extends React.Component {
                   <span className="able-clipped">Show transcript</span>
                 </button>
               </div>
-              <div className="able-right-controls"></div>
+              <div className="able-right-controls">
+                <button type="button" tabIndex="0" aria-label="Preferences" className="able-button-handler-preferences" aria-controls={`${this.props.id}-prefs-menu`}>
+                  <span className="icon-preferences" aria-hidden="true"></span>
+                  <span className="able-clipped">Preferences</span>
+                </button>
+                <button type="button" tabIndex="0" aria-label="Enter full screen" className="able-button-handler-fullscreen">
+                  <span className="icon-fullscreen icon-fullscreen-expand" aria-hidden="true"></span>
+                  <span className="able-clipped">Enter full screen</span>
+                </button>
+              </div>
+              <div>Another clearfix</div>
+              <div id={`${this.props.id}-prefs-menu`} className="able-popup able-popup-no-radio">
+                <ul>
+                  <li>
+                    <input type="radio" value="captions" name={`${this.props.id}-prefs-choice`} id={`${this.props.id}-prefs-0`}/>
+                    <label htmlFor={`${this.props.id}-prefs-0`}>Captions</label>
+                  </li>
+                  //and etc... prefs-1, 2, 3 etc. Do they attach the divs after?
+                </ul>
+              </div>
             </div>
           </div>
         </div>
