@@ -170,7 +170,22 @@ export default class AblePlayer extends React.Component {
                   //and etc... prefs-1, 2, 3 etc. Do they attach the divs after?
                 </ul>
               </div>
+              <div id={`${this.props.id}-captions-menu`} className="able-popup">
+                //again, a bunch of lis. I have no idea what these do, I can't find them
+              </div>
             </div>
+          </div>
+          <div className="able-status-bar">
+            <span className="able-timer">
+              <span className="able-elapsedTime">0:00</span>
+              <span className="able-duration"> / 0:53</span>
+            </span>
+            <span className="able-speed" aria-live="assertive">
+              Speed: 1x
+            </span>
+            <span className="able-status" aria-live="polite">
+              Stopped
+            </span>
           </div>
         </div>
       </div>
