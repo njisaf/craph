@@ -1,12 +1,12 @@
-import {action, observable} from 'mobx';
+import {playerStore} from './player.store';
+
 
 class MasterStore {
 
-
-  @observable lastCreated = undefined;
-  @observable autoplay = false;
-  @observable startTime = 0;
-  @observable volume = 0;
+  constructor(props) {
+    super(props);
+    this.playerStore = playerStore;
+  }
 }
 
 export const masterStore = new MasterStore();

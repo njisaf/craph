@@ -13,23 +13,31 @@ export default class AblePlayer extends React.Component {
 
   static propTypes = {
     store: PropTypes.object.isRequired,
-    autoplay: PropTypes.bool,
     preload: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
     poster: PropTypes.string,
     iconType: PropTypes.string,
     speedIcons: PropTypes.string,
-    startTime: PropTypes.number,
     defaultVolume: PropTypes.number,
     seekInterval: PropTypes.number,
     showNowPlaying: PropTypes.bool,
     lang: PropTypes.string,
     forceLang: PropTypes.bool,
     captionsPosition: PropTypes.string,
-    allowFullscreen: PropTypes.bool,
     youtubeId: PropTypes.string,
-    youtubeDescId: PropTypes.string
+    youtubeDescId: PropTypes.string,
+    options: PropTypes.shape({
+      autoplay: PropTypes.bool,
+      loop: PropTypes.bool,
+      startTime: PropTypes.number,
+      volume: PropTypes.number,
+    }),
+    ignoreButtons: PropTypes.shape({
+      chapters: PropTypes.bool,
+      transcript: PropTypes.bool,
+      descriptions: PropTypes.bool
+    })
   }
 
   static defaultProps = {
@@ -45,28 +53,41 @@ export default class AblePlayer extends React.Component {
     lang: 'en',
     forceLang: false,
     captionsPosition: 'below',
-    allowFullscreen: true,
     youtubeId: '',
-    youtubeDescId: ''
+    youtubeDescId: '',
+    options: {
+      autoplay: false,
+      loop: false,
+      startTime: 0,
+      volume: 7
+    }
+    ignoreButtons: {
+      chapters: false,
+      transcript: false,
+      descriptions: false,
+      fullscreen: false
+    }
   }
 
   constructor(props) {
     super(props);
-    this.store = this.props.store;
+    this.playerStore = this.props.store.playerStore;
   }
 
   componentDidMount() {
-    console.log('this.store', this.store);
     // Keep track of the last player created for use with global events.
-    this.store.lastCreated = this.ablePlayer;
-    this.setInitialState();
+    this.playerStore.lastCreated = this.ablePlayer;
+    this.playerStore.setInitialState(this.props.options);
   }
 
-  setInitialState = () => {
-    this.store.autoplay = this.props.autoplay;
-    this.store.loop = this.props.loop;
-    this.store.time = this.props.startTime;
-    this.store.volume = this.props.defaultVolume;
+  renderStandardControlButton = (button, icon) => {
+    const iconName = icon || button.toLowerCase();
+    return (
+      <button type="button" tabIndex="0" aria-label={button} className={`able-button-handler-${button.toLowerCase()}`}>
+        <span className={`icon-${iconName}`} aria-hidden="true"></span>
+        <span className="able-clipped">{button}</span>
+      </button>
+    )
   }
 
   render() {
@@ -90,22 +111,10 @@ export default class AblePlayer extends React.Component {
             <div className="able-controller able-white-controls">
               <div id={`${this.props.id}-tooltip`} className="able-tooltip"></div>
               <div className="able-left-controls">
-                <button type="button" tabIndex="0" aria-label="Play" className="able-button-handler-play">
-                  <span className="icon-play" aria-hidden="true"></span>
-                  <span className="able-clipped">Play</span>
-                </button>
-                <button type="button" tabIndex="0" aria-label="Restart" className="able-button-handler-restart">
-                  <span className="icon-restart" aria-hidden="true"></span>
-                  <span className="able-clipped">Restart</span>
-                </button>
-                <button type="button" tabIndex="0" aria-label="Rewind" className="able-button-handler-rewind">
-                  <span className="icon-rewind" aria-hidden="true"></span>
-                  <span className="able-clipped">Rewind</span>
-                </button>
-                <button type="button" tabIndex="0" aria-label="Forward" className="able-button-handler-forward">
-                  <span className="icon-forward" aria-hidden="true"></span>
-                  <span className="able-clipped">Forward</span>
-                </button>
+                {this.renderStandardControlButton('Play')}
+                {this.renderStandardControlButton('Restart')}
+                {this.renderStandardControlButton('Rewind')}
+                {this.renderStandardControlButton('Forward')}
               </div>
               <div className="able-right-controls">
                 <div className="able-seekbar-wrapper">
@@ -145,20 +154,30 @@ export default class AblePlayer extends React.Component {
                   <span className="icon-captions" aria-hidden="true"></span>
                   <span className="able-clipped">Hide captions</span>
                 </button>
-                <button type="button" tabIndex="0" aria-label="Show transcript" className="able-button-handler-transcript buttonOff" title="Show transcript">
-                  <span className="icon-transcript" aria-hidden="true"></span>
-                  <span className="able-clipped">Show transcript</span>
-                </button>
+                {
+                  this.props.ignoreButtons.transcript ||
+                  (
+                    <button type="button" tabIndex="0" aria-label="Show transcript" className="able-button-handler-transcript buttonOff" title="Show transcript">
+                      <span className="icon-transcript" aria-hidden="true"></span>
+                      <span className="able-clipped">Show transcript</span>
+                    </button>
+                  )
+                }
               </div>
               <div className="able-right-controls">
                 <button type="button" tabIndex="0" aria-label="Preferences" className="able-button-handler-preferences" aria-controls={`${this.props.id}-prefs-menu`}>
                   <span className="icon-preferences" aria-hidden="true"></span>
                   <span className="able-clipped">Preferences</span>
                 </button>
-                <button type="button" tabIndex="0" aria-label="Enter full screen" className="able-button-handler-fullscreen">
-                  <span className="icon-fullscreen icon-fullscreen-expand" aria-hidden="true"></span>
-                  <span className="able-clipped">Enter full screen</span>
-                </button>
+                {
+                  this.props.ignoreButtons.fullscreen ||
+                  (
+                    <button type="button" tabIndex="0" aria-label="Enter full screen" className="able-button-handler-fullscreen">
+                      <span className="icon-fullscreen icon-fullscreen-expand" aria-hidden="true"></span>
+                      <span className="able-clipped">Enter full screen</span>
+                    </button>
+                  )
+                }
               </div>
               <div>Another clearfix</div>
               <div id={`${this.props.id}-prefs-menu`} className="able-popup able-popup-no-radio">
