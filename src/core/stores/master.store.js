@@ -3,8 +3,7 @@ import {playerStore} from './player.store';
 
 class MasterStore {
 
-  constructor(props) {
-    super(props);
+  constructor() {
     this.playerStore = playerStore;
   }
 }
