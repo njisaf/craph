@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {observer, inject} from 'mobx-react';
 
-import '../styles/main.scss';
+import '../../styles/main.scss';
 
 @inject('store')
 @observer
@@ -36,7 +36,8 @@ export default class AblePlayer extends React.Component {
     ignoreButtons: PropTypes.shape({
       chapters: PropTypes.bool,
       transcript: PropTypes.bool,
-      descriptions: PropTypes.bool
+      descriptions: PropTypes.bool,
+      fullscreen: PropTypes.bool
     })
   }
 
@@ -60,7 +61,7 @@ export default class AblePlayer extends React.Component {
       loop: false,
       startTime: 0,
       volume: 7
-    }
+    },
     ignoreButtons: {
       chapters: false,
       transcript: false,
@@ -140,7 +141,7 @@ export default class AblePlayer extends React.Component {
                   <div id={`${this.props.id}-volume-help`} className="able-volume-help">70%, Click to access volume slider</div>
                 </div>
               </div>
-              <div>clearfix?</div>
+              <div className="clear:both;" />
               <div className="able-left-controls">
                 <button type="button" tabIndex="0" aria-label="Slower" className="able-button-handler-slower">
                   <span className="icon-slower" aria-hidden="true"></span>
@@ -179,18 +180,24 @@ export default class AblePlayer extends React.Component {
                   )
                 }
               </div>
-              <div>Another clearfix</div>
+              <div className="clear:both;" />
               <div id={`${this.props.id}-prefs-menu`} className="able-popup able-popup-no-radio">
                 <ul>
                   <li>
                     <input type="radio" value="captions" name={`${this.props.id}-prefs-choice`} id={`${this.props.id}-prefs-0`}/>
                     <label htmlFor={`${this.props.id}-prefs-0`}>Captions</label>
                   </li>
-                  //and etc... prefs-1, 2, 3 etc. Do they attach the divs after?
+                  <li>
+                    Hello There
+                  </li>
                 </ul>
               </div>
               <div id={`${this.props.id}-captions-menu`} className="able-popup">
-                //again, a bunch of lis. I have no idea what these do, I can't find them
+                <ul>
+                  <li>
+                    Hello There
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

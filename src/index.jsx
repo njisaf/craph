@@ -4,6 +4,8 @@ import {AppContainer, module, render} from 'react-hot-loader';
 import {Provider, observer} from 'mobx-react'
 import {masterStore} from './core/stores/master.store';
 import AblePlayer from './scripts/AblePlayer';
+import 'bootstrap'; // bootstrap is required for modals
+
 
 @observer
 class App extends React.Component {
@@ -12,8 +14,10 @@ class App extends React.Component {
     return (
       <Provider store={masterStore}>
         <div>
-          <h1>Hello World</h1>
-          <AblePlayer></AblePlayer>
+          <h1>React Able Player</h1>
+          <AblePlayer
+            id="video1"
+            />
         </div>
       </Provider>
     )
