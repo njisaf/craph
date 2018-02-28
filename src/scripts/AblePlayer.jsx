@@ -1,3 +1,5 @@
+// const debug = require('debug')('AblePlayer');
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import {observer, inject} from 'mobx-react';
@@ -13,6 +15,8 @@ export default class AblePlayer extends React.Component {
 
   static propTypes = {
     store: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    videoSource: PropTypes.string,
     preload: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
@@ -84,24 +88,42 @@ export default class AblePlayer extends React.Component {
   renderStandardControlButton = (button, icon) => {
     const iconName = icon || button.toLowerCase();
     return (
-      <button type="button" tabIndex="0" aria-label={button} className={`able-button-handler-${button.toLowerCase()}`}>
+      <button type="button" onClick={this[`handle${button}OnClick`]} tabIndex="0" aria-label={button} className={`able-button-handler-${button.toLowerCase()}`}>
         <span className={`icon-${iconName}`} aria-hidden="true"></span>
         <span className="able-clipped">{button}</span>
       </button>
     )
   }
 
+  handlePlayOnClick = () => {
+    console.log('handlePlayOnClick');
+  }
+
+  handleRestartOnClick = () => {
+    console.log('handleRestartOnClick');
+  }
+
+  handleRewindOnClick = () => {
+    console.log('handleRewindOnClick');
+  }
+
+  handleForwardOnClick = () => {
+    console.log('handleForwardOnClick');
+  }
+
+  //width and height are generated OFF of the video attributes and added as inline styles.
+
   render() {
     return (
-      <div className="able-wrapper" ref={(ref) => this.ablePlayer = ref}>
+      <div className="able-wrapper" ref={(ref) => this.ablePlayer = ref} aria-hidden="false" style={{maxWidth: '480px'}}>
         <div className="able">
           <h2 className="able-offscreen">Media Player</h2>
         </div>
         <div className="able-vidcap-container">
           <div className="able-media-container">
-            <video>
-              <source />
-              <track />
+            <video id={this.props.id} tabIndex="-1" width={this.props.height} height={this.props.width} style={{width: '100%', height: 'auto'}}>
+              <source type="video/mp4" src={this.props.videoSource}/>
+              <track kind="captions" src={this.props.captionSource}/>
             </video>
           </div>
           <div className="able-captions-wrapper able-captions-overlay" aria-hidden="true">
