@@ -4,8 +4,10 @@ import {AppContainer, module, render} from 'react-hot-loader';
 import {Provider, observer} from 'mobx-react'
 import {masterStore} from './core/stores/master.store';
 import AblePlayer from './scripts/AblePlayer';
+import LegacyVideoPlayer from './scripts/LegacyVideoPlayer';
 import 'bootstrap'; // bootstrap is required for modals
 
+import MockData from '../content/MockData.json';
 
 @observer
 class App extends React.Component {
@@ -18,6 +20,11 @@ class App extends React.Component {
           <AblePlayer
             id="video1"
             />
+          <LegacyVideoPlayer
+            id={MockData.id}
+            videoSource={MockData.videoSource}
+            poster={MockData.poster}
+            captions={MockData.caption}/>
         </div>
       </Provider>
     )
