@@ -97,6 +97,7 @@ export default class AblePlayer extends React.Component {
 
   handlePlayOnClick = () => {
     console.log('handlePlayOnClick');
+    this.video.play(true);
   }
 
   handleRestartOnClick = () => {
@@ -121,7 +122,7 @@ export default class AblePlayer extends React.Component {
         </div>
         <div className="able-vidcap-container">
           <div className="able-media-container">
-            <video id={this.props.id} tabIndex="-1" width={this.props.height} height={this.props.width} poster={this.props.poster} style={{width: '100%', height: 'auto'}}>
+            <video ref={video => this.video = video} id={this.props.id} tabIndex="-1" width={this.props.height} height={this.props.width} poster={this.props.poster} style={{width: '100%', height: 'auto'}}>
               <source type="video/mp4" src={this.props.videoSource}/>
               <track kind="captions" src={this.props.captions}/>
             </video>
