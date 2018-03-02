@@ -119,6 +119,7 @@ export default class AblePlayer extends React.Component {
 
   handleForwardOnClick = () => {
     console.log('handleForwardOnClick');
+    this.playerStore.handleFastForward();
   }
 
 

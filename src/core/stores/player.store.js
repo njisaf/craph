@@ -109,6 +109,66 @@ class PlayerStore {
     return position;
   }
 
+  @action handleFastForward() {
+
+    const elapsed = this.getElapsed();
+    const duration = this.getDuration();
+    // const lastChapterIndex = this.chapters.length-1;
+    let targetTime = elapsed + this.seekInterval;
+    //TODO: CHAPTERS my God they're everywhere.
+    // if (this.useChapterTimes) {
+    //   if (this.chapters[lastChapterIndex] == this.currentChapter) {
+    //     // this is the last chapter
+    //     if (targetTime > duration || targetTime > this.currentChapter.end) {
+    //       // targetTime would exceed the end of the video (or chapter)
+    //       // scrub to end of whichever is earliest
+    //       targetTime = Math.min(duration, this.currentChapter.end);
+    //     }
+    //     else if (duration % targetTime < this.seekInterval) {
+    //       // nothing left but pocket change after seeking to targetTime
+    //       // go ahead and seek to end of video (or chapter), whichever is earliest
+    //       targetTime = Math.min(duration, this.currentChapter.end);
+    //     }
+    //   }
+    //   else {
+    //     // this is not the last chapter
+    //     if (targetTime > this.currentChapter.end) {
+    //       // targetTime would exceed the end of the chapter
+    //       // scrub exactly to end of chapter
+    //       targetTime = this.currentChapter.end;
+    //     }
+    //   }
+    // }
+    // else {
+    //   // not using chapter times
+    //   if (targetTime > duration) {
+    //     targetTime = duration;
+    //   }
+    // }
+    if (targetTime > duration) {
+      targetTime = duration;
+    }
+    this.seekTo(targetTime);
+  }
+
+  @action getDuration() {
+
+    let duration;
+    if (this.player === 'html5') {
+      duration = this.videoPlayer.video.duration;
+    }
+    // else if (this.player === 'jw' && this.jwPlayer) {
+    //   duration = this.jwPlayer.getDuration();
+    // }
+    // else if (this.player === 'youtube' && this.youTubePlayer) {
+    //   duration = this.youTubePlayer.getDuration();
+    // }
+    // if (duration === undefined || isNaN(duration) || duration === -1) {
+    //   return 0;
+    // }
+    return duration;
+  };
+
   @observable seeking = false;
   @observable liveUpdatePending = false;
   @observable startTime = 0;
