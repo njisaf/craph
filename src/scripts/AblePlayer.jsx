@@ -3,6 +3,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {observer, inject} from 'mobx-react';
+import {observable} from 'mobx';
+
+import VideoPlayer from './VideoPlayer';
 
 import '../../styles/main.scss';
 
@@ -17,10 +20,11 @@ export default class AblePlayer extends React.Component {
     store: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     videoSource: PropTypes.string,
+    captions: PropTypes.string,
+    poster: PropTypes.string,
     preload: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
-    poster: PropTypes.string,
     iconType: PropTypes.string,
     speedIcons: PropTypes.string,
     defaultVolume: PropTypes.number,
@@ -83,7 +87,10 @@ export default class AblePlayer extends React.Component {
     // Keep track of the last player created for use with global events.
     this.playerStore.lastCreated = this.ablePlayer;
     this.playerStore.setInitialState(this.props.options);
+    console.log('handlePlayOnClick', this._videoPlayer);
   }
+
+  @observable videoIsPlaying = false;
 
   renderStandardControlButton = (button, icon) => {
     const iconName = icon || button.toLowerCase();
@@ -96,7 +103,20 @@ export default class AblePlayer extends React.Component {
   }
 
   handlePlayOnClick = () => {
-    console.log('handlePlayOnClick');
+    this.videoIsPlaying
+      ? this.pauseVideo()
+      : this.playVideo()
+
+  }
+
+  playVideo = () => {
+    this._videoPlayer.video.play(true);
+    this.videoIsPlaying = true;
+  }
+
+  pauseVideo = () => {
+    this._videoPlayer.video.pause(true);
+    this.videoIsPlaying = false;
   }
 
   handleRestartOnClick = () => {
@@ -121,10 +141,12 @@ export default class AblePlayer extends React.Component {
         </div>
         <div className="able-vidcap-container">
           <div className="able-media-container">
-            <video id={this.props.id} tabIndex="-1" width={this.props.height} height={this.props.width} style={{width: '100%', height: 'auto'}}>
-              <source type="video/mp4" src={this.props.videoSource}/>
-              <track kind="captions" src={this.props.captionSource}/>
-            </video>
+            <VideoPlayer
+              ref={el => this._videoPlayer = el}
+              id={this.props.id}
+              videoSource={this.props.videoSource}
+              captions={this.props.captions}
+              poster={this.props.poster} />
           </div>
           <div className="able-captions-wrapper able-captions-overlay" aria-hidden="true">
             <div className="able-captions"></div>

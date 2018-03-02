@@ -4,7 +4,7 @@
   "description": "This is madness",
   "main": "index.js",
   "scripts": {
-    "copyassets": "copyfiles ./fonts/**/* ./images/**/* ./build/",
+    "copyassets": "copyfiles ./content/**/* ./fonts/**/* ./images/**/* ./vendors/**/* ./build/",
     "build": "rm -rf build & npm run copyassets & webpack -p",
     "start": "npm run copyassets & webpack-dev-server --hot --open --env=dev --progress",
     "debug": "npm run copyassets & webpack-dev-server --hot --open --env=dev --progress NODE_ENV=DEBUG"
