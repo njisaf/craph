@@ -114,6 +114,7 @@ export default class AblePlayer extends React.Component {
 
   handleRewindOnClick = () => {
     console.log('handleRewindOnClick');
+    this.playerStore.handleRewind();
   }
 
   handleForwardOnClick = () => {

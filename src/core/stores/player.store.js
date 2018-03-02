@@ -64,7 +64,50 @@ class PlayerStore {
     //     }
     //   }
     // }
-  };
+  }
+
+  @action handleRewind() {
+    const elapsed = this.getElapsed();
+    let targetTime = elapsed - this.seekInterval;
+    //TODO: All this chapters stuff;
+    // if (this.useChapterTimes) {
+    //   if (targetTime < this.currentChapter.start) {
+    //     targetTime = this.currentChapter.start;
+    //   }
+    // }
+    // else {
+    //   if (targetTime < 0) {
+    //     targetTime = 0;
+    //   }
+    // }
+    if (targetTime < 0) {
+      targetTime = 0;
+    }
+    this.seekTo(targetTime);
+  }
+
+  @action getElapsed() {
+    let position;
+    if (this.player === 'html5') {
+      position = this.videoPlayer.video.currentTime;
+    }
+    // else if (this.player === 'jw' && this.jwPlayer) {
+    //   if (this.jwPlayer.getState() === 'IDLE') {
+    //     return 0;
+    //   }
+    //   position = this.jwPlayer.getPosition();
+    // }
+    // else if (this.player === 'youtube') {
+    //   if (this.youTubePlayer) {
+    //     position = this.youTubePlayer.getCurrentTime();
+    //   }
+    // }
+
+    if (position === undefined || isNaN(position) || position === -1) {
+      return 0;
+    }
+    return position;
+  }
 
   @observable seeking = false;
   @observable liveUpdatePending = false;
@@ -74,10 +117,12 @@ class PlayerStore {
   @observable videoPlayer = [];
   @observable isPlaying = false;
 
+  //TODO: This is a test number. seekInterval should be set off the props using AblePlayer's setSeekInterval function, but that has a ton of extra functionality that needs to be parsed.
+  @observable seekInterval = 5;
 
   @observable lastCreated = undefined;
 
-  //player state
+  //optional player state
   @observable autoplay = false;
   @observable loop = false
   @observable startTime = 0;
