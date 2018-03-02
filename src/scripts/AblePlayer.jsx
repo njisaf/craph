@@ -102,6 +102,7 @@ export default class AblePlayer extends React.Component {
 
   handlePlayOnClick = () => {
     console.log('handlePlayOnClick');
+    //TODO: Also will need to work out how best to swap the icons; this will be important for volume as well.
     this.playerStore.isPlaying
       ? this.playerStore.pauseVideo()
       : this.playerStore.playVideo()
