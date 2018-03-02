@@ -18,13 +18,17 @@ class App extends React.Component {
         <div>
           <h1>React Able Player</h1>
           <AblePlayer
-            id="video1"
+            id={MockData.id}
+            videoSource={MockData.videoSource}
+            poster={MockData.poster}
+            captions={MockData.caption}
             />
           <LegacyVideoPlayer
             id={MockData.id}
             videoSource={MockData.videoSource}
             poster={MockData.poster}
-            captions={MockData.caption}/>
+            captions={MockData.caption}
+            />
         </div>
       </Provider>
     )

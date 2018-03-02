@@ -121,9 +121,9 @@ export default class AblePlayer extends React.Component {
         </div>
         <div className="able-vidcap-container">
           <div className="able-media-container">
-            <video id={this.props.id} tabIndex="-1" width={this.props.height} height={this.props.width} style={{width: '100%', height: 'auto'}}>
+            <video id={this.props.id} tabIndex="-1" width={this.props.height} height={this.props.width} poster={this.props.poster} style={{width: '100%', height: 'auto'}}>
               <source type="video/mp4" src={this.props.videoSource}/>
-              <track kind="captions" src={this.props.captionSource}/>
+              <track kind="captions" src={this.props.captions}/>
             </video>
           </div>
           <div className="able-captions-wrapper able-captions-overlay" aria-hidden="true">
