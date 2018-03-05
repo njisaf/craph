@@ -18,7 +18,7 @@ class App extends React.Component {
             <div className="col-12 col-md-6">
               <h2>In Development</h2>
               <AblePlayer
-                id={MockData.id + "-dev"}
+                id={MockData.id + '-dev'}
                 videoSource={MockData.videoSource}
                 poster={MockData.poster}
                 captions={MockData.caption}
@@ -27,7 +27,7 @@ class App extends React.Component {
             <div className="col-12 col-md-6">
               <h2>Legacy</h2>
               <LegacyVideoPlayer
-                id={MockData.id + "-legacy"}
+                id={MockData.id + '-legacy'}
                 videoSource={MockData.videoSource}
                 poster={MockData.poster}
                 captions={MockData.caption}
