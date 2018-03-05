@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {observer, inject} from 'mobx-react';
-import {observable} from 'mobx';
+// import {observable} from 'mobx';
 
 import VideoPlayer from './VideoPlayer';
 
@@ -84,13 +84,11 @@ export default class AblePlayer extends React.Component {
   }
 
   componentDidMount() {
-    // Keep track of the last player created for use with global events.
+    // AblePlayer: "Keep track of the last player created for use with global events." no clue what this means
     this.playerStore.lastCreated = this.ablePlayer;
     this.playerStore.setInitialState(this.props.options);
-    console.log('handlePlayOnClick', this._videoPlayer);
+    console.log('this.playerStore.videoPlayer', this.playerStore.videoPlayer);
   }
-
-  @observable videoIsPlaying = false;
 
   renderStandardControlButton = (button, icon) => {
     const iconName = icon || button.toLowerCase();
@@ -103,33 +101,28 @@ export default class AblePlayer extends React.Component {
   }
 
   handlePlayOnClick = () => {
-    this.videoIsPlaying
-      ? this.pauseVideo()
-      : this.playVideo()
-
-  }
-
-  playVideo = () => {
-    this._videoPlayer.video.play(true);
-    this.videoIsPlaying = true;
-  }
-
-  pauseVideo = () => {
-    this._videoPlayer.video.pause(true);
-    this.videoIsPlaying = false;
+    console.log('handlePlayOnClick');
+    this.playerStore.isPlaying
+      ? this.playerStore.pauseVideo()
+      : this.playerStore.playVideo()
   }
 
   handleRestartOnClick = () => {
     console.log('handleRestartOnClick');
+    this.playerStore.seekTo(0);
   }
 
   handleRewindOnClick = () => {
     console.log('handleRewindOnClick');
+    this.playerStore.handleRewind();
   }
 
   handleForwardOnClick = () => {
     console.log('handleForwardOnClick');
+    this.playerStore.handleFastForward();
   }
+
+
 
   //width and height are generated OFF of the video attributes and added as inline styles.
 
@@ -142,7 +135,7 @@ export default class AblePlayer extends React.Component {
         <div className="able-vidcap-container">
           <div className="able-media-container">
             <VideoPlayer
-              ref={el => this._videoPlayer = el}
+              ref={el => this.playerStore.assignVideoPlayerRef(el)}
               id={this.props.id}
               videoSource={this.props.videoSource}
               captions={this.props.captions}
