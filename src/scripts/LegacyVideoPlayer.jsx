@@ -8,7 +8,7 @@ export default class LegacyVideoPlayer extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     videoSource: PropTypes.string,
-    caption: PropTypes.string,
+    captions: PropTypes.string,
     poster: PropTypes.string
   }
 

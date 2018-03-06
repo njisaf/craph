@@ -1,8 +1,8 @@
-import {action, observable} from 'mobx';
+import {masterStore} from './master.store';
 
-class PlayerStore {
+class PlayerStore extends masterStore {
 
-  @action setInitialState(options) {
+  setInitialState(options) {
     for (let key in options) {
       if (this[key]) {
         this[key] = options[key];
@@ -10,21 +10,21 @@ class PlayerStore {
     }
   }
 
-  @action assignVideoPlayerRef(ref) {
+  assignVideoPlayerRef(ref) {
     this.videoPlayer = ref;
   }
 
-  @action playVideo() {
+  playVideo() {
     this.videoPlayer.video.play(true);
     this.isPlaying = true;
   }
 
-  @action pauseVideo() {
+  pauseVideo() {
     this.videoPlayer.video.pause(true);
     this.isPlaying = false;
   }
 
-  @action seekTo(newTime) {
+  seekTo(newTime) {
 
     //TODO: What does seeking do?
     this.seeking = true;
@@ -66,7 +66,7 @@ class PlayerStore {
     // }
   }
 
-  @action handleRewind() {
+  handleRewind() {
     const elapsed = this.getElapsed();
     let targetTime = elapsed - this.seekInterval;
     //TODO: All this chapters stuff;
@@ -86,7 +86,7 @@ class PlayerStore {
     this.seekTo(targetTime);
   }
 
-  @action getElapsed() {
+  getElapsed() {
     let position;
     if (this.player === 'html5') {
       position = this.videoPlayer.video.currentTime;
@@ -109,7 +109,7 @@ class PlayerStore {
     return position;
   }
 
-  @action handleFastForward() {
+  handleFastForward() {
 
     const elapsed = this.getElapsed();
     const duration = this.getDuration();
@@ -151,7 +151,7 @@ class PlayerStore {
     this.seekTo(targetTime);
   }
 
-  @action getDuration() {
+  getDuration() {
 
     let duration;
     if (this.player === 'html5') {
@@ -167,26 +167,26 @@ class PlayerStore {
     //   return 0;
     // }
     return duration;
-  };
+  }
 
-  @observable seeking = false;
-  @observable liveUpdatePending = false;
-  @observable startTime = 0;
+  seeking = false;
+  liveUpdatePending = false;
+  startTime = 0;
 
-  @observable player = 'html5'
-  @observable videoPlayer = [];
-  @observable isPlaying = false;
+  player = 'html5'
+  videoPlayer = [];
+  isPlaying = false;
 
   //TODO: This is a test number. seekInterval should be set off the props using AblePlayer's setSeekInterval function, but that has a ton of extra functionality that needs to be parsed.
-  @observable seekInterval = 5;
+  seekInterval = 5;
 
-  @observable lastCreated = undefined;
+  lastCreated = undefined;
 
   //optional player state
-  @observable autoplay = false;
-  @observable loop = false
-  @observable startTime = 0;
-  @observable volume = 7;
+  autoplay = false;
+  loop = false
+  startTime = 0;
+  volume = 7;
 }
 
 export const playerStore = new PlayerStore();

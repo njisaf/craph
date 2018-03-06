@@ -2,51 +2,30 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {observer, inject} from 'mobx-react';
-// import {observable} from 'mobx';
-
 import VideoPlayer from './VideoPlayer';
+
+import {connect} from '../core/stores/connect';
+import {playerStore} from '../core/store/player.store';
 
 import '../../styles/main.scss';
 
-@inject('store')
-@observer
-export default class AblePlayer extends React.Component {
+const mapStoreToProps = ({playerStore}) => (
+  {
+    isPlaying: playerStore.state.isPlaying
+  }
+)
+
+class AblePlayer extends React.Component {
   //TODO: Let's start stacking them up:
   // 1) Work out how to handle transcripts. Might need a completely new conception, or might just need to be left as jQuery.
 
 
   static propTypes = {
-    store: PropTypes.object.isRequired,
     id: PropTypes.string.isRequired,
     videoSource: PropTypes.string,
     captions: PropTypes.string,
     poster: PropTypes.string,
-    preload: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    iconType: PropTypes.string,
-    speedIcons: PropTypes.string,
-    defaultVolume: PropTypes.number,
-    seekInterval: PropTypes.number,
-    showNowPlaying: PropTypes.bool,
-    lang: PropTypes.string,
-    forceLang: PropTypes.bool,
-    captionsPosition: PropTypes.string,
-    youtubeId: PropTypes.string,
-    youtubeDescId: PropTypes.string,
-    options: PropTypes.shape({
-      autoplay: PropTypes.bool,
-      loop: PropTypes.bool,
-      startTime: PropTypes.number,
-      volume: PropTypes.number,
-    }),
-    ignoreButtons: PropTypes.shape({
-      chapters: PropTypes.bool,
-      transcript: PropTypes.bool,
-      descriptions: PropTypes.bool,
-      fullscreen: PropTypes.bool
-    })
+    isPlaying: PropTypes.bool
   }
 
   static defaultProps = {
@@ -80,15 +59,15 @@ export default class AblePlayer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.playerStore = this.props.store.playerStore;
+    this.playerStore = playerStore;
   }
 
-  componentDidMount() {
-    // AblePlayer: "Keep track of the last player created for use with global events." no clue what this means
-    this.playerStore.lastCreated = this.ablePlayer;
-    this.playerStore.setInitialState(this.props.options);
-    console.log('this.playerStore.videoPlayer', this.playerStore.videoPlayer);
-  }
+  // componentDidMount() {
+  //   // AblePlayer: "Keep track of the last player created for use with global events." no clue what this means
+  //   this.playerStore.lastCreated = this.ablePlayer;
+  //   this.playerStore.setInitialState(this.props.options);
+  //   console.log('this.playerStore.videoPlayer', this.playerStore.videoPlayer);
+  // }
 
   renderStandardControlButton = (button, icon) => {
     const iconName = icon || button.toLowerCase();
@@ -102,7 +81,7 @@ export default class AblePlayer extends React.Component {
 
   handlePlayOnClick = () => {
     console.log('handlePlayOnClick');
-    this.playerStore.isPlaying
+    this.props.isPlaying
       ? this.playerStore.pauseVideo()
       : this.playerStore.playVideo()
   }
@@ -254,5 +233,6 @@ export default class AblePlayer extends React.Component {
       </div>
     )
   }
-
 }
+
+export default connect(mapStoreToProps)(AblePlayer);

@@ -1,9 +1,6 @@
-import {playerStore} from './player.store';
-
 class MasterStore {
 
   constructor() {
-    this.playerStore = playerStore;
     this.subscribers = [];
     this.state = {};
   }
