@@ -90,12 +90,24 @@ export default class AblePlayer extends React.Component {
     console.log('this.playerStore.videoPlayer', this.playerStore.videoPlayer);
   }
 
-  renderStandardControlButton = (button, icon) => {
-    const iconName = icon || button.toLowerCase();
+  //able-clipped is functionally equivalent to sr-only;
+  //TODO: We need to swap icons around with another argument, then we can render all the buttons here I think. Wait for icons to get fixed.
+  renderStandardControlButton = (button, handlerName) => {
+    const iconName = handlerName || button;
+    const className = handlerName || button;
     return (
-      <button type="button" onClick={this[`handle${button}OnClick`]} tabIndex="0" aria-label={button} className={`able-button-handler-${button.toLowerCase()}`}>
-        <span className={`icon-${iconName}`} aria-hidden="true"></span>
+      <button type="button" onClick={this[`handle${handlerName || button}OnClick`]} tabIndex="0" aria-label={button} className={`able-button-handler-${className.toLowerCase()}`}>
+        <span className={`icon-${iconName.toLowerCase()}`} aria-hidden="true"></span>
         <span className="able-clipped">{button}</span>
+      </button>
+    )
+  }
+
+  renderVolumeButton = () => {
+    return (
+      <button type="button" tabIndex="0" onClick={this.handleVolumeOnClick} aria-label="Volume" className="aria-button-handler-volume" aria-controls={`${this.props.id}-volume-slider`} aria-describedby={`${this.props.id}-volume-help`}>
+        <span className="icon-volume-medium" aria-hidden="true"></span>
+        <span className="able-clipped">Volume</span>
       </button>
     )
   }
@@ -123,9 +135,35 @@ export default class AblePlayer extends React.Component {
     this.playerStore.handleFastForward();
   }
 
+  handleFasterOnClick = () => {
+    console.log('handleFasterOnClick');
+  }
 
+  handleSlowerOnClick = () => {
+    console.log('handleSlowerOnClick');
+  }
+
+  handleVolumeOnClick = () => {
+    console.log('handleVolumeOnClick');
+  }
+
+  handleCaptionsOnClick = () => {
+    console.log('handleCaptionsOnClick');
+  }
+
+  handleTranscriptOnClick = () => {
+    console.log('handleTranscriptOnClick');
+  }
+
+
+  // //
+  // <button type="button" tabIndex="0" aria-label="Hide captions" className="able-button-handler-captions">
+  //   <span className="icon-captions" aria-hidden="true"></span>
+  //   <span className="able-clipped">Hide captions</span>
+  // </button>
 
   //width and height are generated OFF of the video attributes and added as inline styles.
+  //$bigPlayButton is set to $mediaContainer's height/width; this is why it's breaking on TP.
 
   render() {
     return (
@@ -165,10 +203,7 @@ export default class AblePlayer extends React.Component {
                   </div>
                   <span className="able-offscreen" aria-live="polite"></span>
                 </div>
-                <button type="button" tabIndex="0" aria-label="Volume" className="aria-button-handler-volume" aria-controls={`${this.props.id}-volume-slider`} aria-describedby={`${this.props.id}-volume-help`}>
-                  <span className="icon-volume-medium" aria-hidden="true"></span>
-                  <span className="able-clipped">Volume</span>
-                </button>
+                {this.renderVolumeButton()}
                 <div id={`${this.props.id}-volume-slider`} className="able-volume-slider" aria-hidden="true">
                   <div className="able-tooltip" role="tooltip"></div>
                   <div className="able-volume-track">
@@ -181,27 +216,10 @@ export default class AblePlayer extends React.Component {
               </div>
               <div className="clear:both;" />
               <div className="able-left-controls">
-                <button type="button" tabIndex="0" aria-label="Slower" className="able-button-handler-slower">
-                  <span className="icon-slower" aria-hidden="true"></span>
-                  <span className="able-clipped">Slower</span>
-                </button>
-                <button type="button" tabIndex="0" aria-label="Faster" className="able-button-handler-faster">
-                  <span className="icon-faster" aria-hidden="true"></span>
-                  <span className="able-clipped">Faster</span>
-                </button>
-                <button type="button" tabIndex="0" aria-label="Hide captions" className="able-button-handler-captions">
-                  <span className="icon-captions" aria-hidden="true"></span>
-                  <span className="able-clipped">Hide captions</span>
-                </button>
-                {
-                  this.props.ignoreButtons.transcript ||
-                  (
-                    <button type="button" tabIndex="0" aria-label="Show transcript" className="able-button-handler-transcript buttonOff" title="Show transcript">
-                      <span className="icon-transcript" aria-hidden="true"></span>
-                      <span className="able-clipped">Show transcript</span>
-                    </button>
-                  )
-                }
+                {this.renderStandardControlButton('Slower')}
+                {this.renderStandardControlButton('Faster')}
+                {this.renderStandardControlButton('Hide Captions', 'Captions')}
+                {this.props.ignoreButtons.transcript || this.renderStandardControlButton('Show transcript', 'Transcript')}
               </div>
               <div className="able-right-controls">
                 <button type="button" tabIndex="0" aria-label="Preferences" className="able-button-handler-preferences" aria-controls={`${this.props.id}-prefs-menu`}>
