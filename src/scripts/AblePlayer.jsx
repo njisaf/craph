@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import VideoPlayer from './VideoPlayer';
 
 import {connect} from '../core/stores/connect';
-import {playerStore} from '../core/store/player.store';
+import {playerStore} from '../core/stores/player.store';
 
 import '../../styles/main.scss';
 
-const mapStoreToProps = ({playerStore}) => (
+const mapContextToStore = ({playerStore}) => (
   {
     isPlaying: playerStore.state.isPlaying
   }

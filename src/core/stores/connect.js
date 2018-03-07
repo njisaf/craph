@@ -1,10 +1,15 @@
-import React from 'react';
-import {getAll} from './container';
+import {getAll, register} from './container';
 
-const connect = (mapStoreToProps) => (Component) => {
-  class Connect extends React.Component {
+const connect = (mapContextToStore) => (Component) => {
+  //don't register MasterStore, the other stores will all be made a subclass.
+
+  //if "store" doesn't exist, register it;
+  //"store" will basically be any component with registered context;
+  //check store for changes, if changes exist register them.
+  //the registered container cycles back through Provider/Consumer.
+
+  class Connect {
     constructor() {
-      super();
       const rawStores = getAll();
 
       this.effectiveStoreNames = [];
@@ -38,11 +43,11 @@ const connect = (mapStoreToProps) => (Component) => {
       });
     }
 
-    render() {
-      return (
-        <Component {...mapStoreToProps(this.allStores)} {...this.props} />
-      );
-    }
+    // render() {
+    //   return (
+    //     <Component {...mapStoreToProps(this.allStores)} {...this.props} />
+    //   );
+    // }
 
     componentWillUpdate() {
       this.effectiveStoreNames = [];

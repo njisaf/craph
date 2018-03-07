@@ -1,4 +1,4 @@
-class MasterStore {
+export default class MasterStore {
 
   constructor() {
     this.subscribers = [];
@@ -30,5 +30,3 @@ class MasterStore {
     this.subscribers.forEach(listener => listener());
   }
 }
-
-export const masterStore = new MasterStore();

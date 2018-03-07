@@ -1,6 +1,6 @@
-import {masterStore} from './master.store';
+import MasterStore from './master.store';
 
-class PlayerStore extends masterStore {
+class PlayerStore extends MasterStore {
 
   setInitialState(options) {
     for (let key in options) {
