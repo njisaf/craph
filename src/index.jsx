@@ -7,6 +7,8 @@ import AblePlayer from "./scripts/AblePlayer";
 import LegacyVideoPlayer from "./scripts/LegacyVideoPlayer";
 import MockData from "../content/MockData.json";
 
+import ReactAblePlayer from './scripts/react-ableplayer/react-ableplayer';
+
 @observer
 class App extends React.Component {
   render() {
@@ -15,6 +17,7 @@ class App extends React.Component {
         <div className="container">
           <h1>React Able Player</h1>
           <div className="row">
+
             <div className="col-12 col-md-6">
               <h2>In Development</h2>
               <AblePlayer
@@ -22,6 +25,14 @@ class App extends React.Component {
                 videoSource={MockData.videoSource}
                 poster={MockData.poster}
                 captions={MockData.caption}
+              />
+            <br />
+            <h2>New structure</h2>
+            <ReactAblePlayer
+              id={MockData.id + '-new'}
+              videoSource={MockData.videoSource}
+              poster={MockData.poster}
+              captions={MockData.caption}
               />
             </div>
             <div className="col-12 col-md-6">
