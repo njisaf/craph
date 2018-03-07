@@ -1,9 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {AppContainer, module, render} from 'react-hot-loader';
+
+import {register} from './core/stores/container';
+import {masterStore} from './core/stores/master.store';
+import {playerStore} from './core/stores/player.store';
+
 import AblePlayer from './scripts/AblePlayer';
 import LegacyVideoPlayer from './scripts/LegacyVideoPlayer';
 import 'bootstrap'; // bootstrap is required for modals
+
+register({
+  masterStore,
+  playerStore
+});
 
 import MockData from '../content/MockData.json';
 

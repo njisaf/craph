@@ -1,8 +1,3 @@
-import {register} from './container';
-import {playerStore} from './player.store';
-
-register({masterStore, playerStore});
-
 class MasterStore {
 
   constructor() {
