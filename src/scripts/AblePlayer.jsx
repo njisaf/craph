@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Media from './components/Media';
 import Captions from './components/Captions';
-import Controls from './components/Controls';
+import Controls from './components/Controls/Controls';
 import StatusBar from './components/StatusBar';
 
 import '../../styles/main.scss';
