@@ -1,2 +1,8 @@
-@import "./ableplayer";
-@import "./react-ableplayer";
+@import './ableplayer';
+
+@import
+  './defaults',
+  './react-ableplayer',
+  './captions',
+  './controls',
+  './statusbar';
