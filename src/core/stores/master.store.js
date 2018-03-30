@@ -1,32 +1,36 @@
+
 export default class MasterStore {
-
   constructor() {
-    this.subscribers = [];
-    this.state = {};
+    this.state;
+    this.listeners = [];
+    this.reducers = {};
   }
 
-  setState(state) {
-    //using Object.assign like this, later objects (state) will overwrite the matching properties of preceding objects (this.state);
-    this.state = Object.assign({}, this.state, state);
-    this.dispatch();
+  getState = () => {
+    return this.state;
   }
 
-  subscribe(listener) {
-    this.subscribers.push(listener);
-    let isSubscribed = true;
-
+  subscribeReducer = (name, reducer) => {
+    this.reducers[name] = reducer;
     return () => {
-      if (!isSubscribed) {
-        return;
-      }
-      isSubscribed = false;
-      const index = this.subscribers.indexOf(listener);
-
-      this.subscribers.splice(index, 1);
-    };
+      this.reducers = Object.keys(this.reducers).reduce((object, key) => {
+        if (key !== name) {
+          object[key] = this.reducers[key];
+        }
+        return object;
+      }, {});
+    }
   }
 
-  dispatch() {
-    this.subscribers.forEach(listener => listener());
+  subscribeListener = (listener) => {
+    this.listeners.push(listener);
+    return () => {
+      this.listeners = this.listeners.filter(l => l !== listener);
+    }
+  }
+
+  dispatch = (action) => {
+    this.state = this.reducer(this.state, action);
+    this.listeners.forEach(listener => listener());
   }
 }
