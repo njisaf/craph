@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import OffScreen from './off-screen';
 import Media from './media';
 import Captions from './captions';
-import Controls from './controls';
+import Controls from './controls/controls';
 import StatusBar from './status-bar';
 
 export default class ReactAblePlayer extends React.Component {
