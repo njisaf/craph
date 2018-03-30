@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {observer} from 'mobx-react';
 
 @observer
-export default class VideoPlayer extends React.Component {
+export default class Media extends React.Component {
 
   static propTypes = {
     id: PropTypes.string,
