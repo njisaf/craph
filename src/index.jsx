@@ -7,9 +7,6 @@ import LegacyVideoPlayer from './scripts/LegacyVideoPlayer';
 import 'bootstrap'; // bootstrap is required for modals
 import MockData from "../content/MockData.json";
 
-
-import ReactAblePlayer from './scripts/react-ableplayer/react-ableplayer';
-
 class App extends React.Component {
   render() {
     return (
