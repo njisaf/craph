@@ -1,0 +1,5 @@
+.reactAblePlayer__status {
+  @extend .clearfix;
+  background: $statusbar-bgcolor;
+  color: $statusbar-font-color;
+}

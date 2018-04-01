@@ -1,0 +1,34 @@
+.reactAblePlayer__controls {
+  line-height: 42px;
+
+  .controls-main {
+    @extend .clearfix;
+    background: $control-main-bgcolor;
+    color: $control-main-font-color;
+  }
+
+  .controls-sub {
+    @extend .clearfix;
+    background: $control-sub-bgcolor;
+    color: $control-sub-font-color;
+  }
+
+  .btn-icon{
+    border-radius: $btn-icon-border-radius;
+    border-color:$btn-icon-border-color;
+    width: $btn-icon-width;
+    height: $btn-icon-height;
+    background: $btn-icon-background;
+    vertical-align: middle;
+    text-align: center;
+    color: $btn-icon-color;
+    padding: 0;
+    margin: 2px;
+    cursor: pointer;
+
+    &:hover {
+      background: $btn-icon-hover-background;
+      border-color: $btn-icon-hover-border-color;
+    }
+  }
+}
