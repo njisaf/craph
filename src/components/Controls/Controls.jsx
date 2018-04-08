@@ -18,44 +18,37 @@ export default class Controls extends React.Component {
                     buttonName="Play"
                     className="able-button-handler-play"
                     iconClass="icon-play"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                   <ControlButton
                     buttonName="Restart"
                     className="able-button-handler-restart"
                     iconClass="icon-restart"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                   <ControlButton
                     buttonName="Rewind"
                     className="able-button-handler-rewind"
                     iconClass="icon-rewind"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                   <ControlButton
                     buttonName="Forward"
                     className="able-button-handler-rewind"
                     iconClass="icon-forward"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                   <ControlButton
                     buttonName="Slower"
                     className="able-button-handler-slower"
                     iconClass="icon-slower"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                   <ControlButton
                     buttonName="Faster"
                     className="able-button-handler-faster"
                     iconClass="icon-faster"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                   <ControlButton
                     buttonName="Hide Captions"
                     className="able-button-handler-captions"
                     iconClass="icon-captions"
-                    onClick={this.handleButtonOnClick}
-                  />
+                    onClick={buttons.toggleButton} />
                 </div>
               )}
             </ButtonsConsumer>

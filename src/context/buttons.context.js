@@ -10,7 +10,7 @@ export class ButtonsProvider extends React.Component {
   }
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isPlaying: false
     }
