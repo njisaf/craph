@@ -1,12 +1,18 @@
+//modules
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Media from './components/Media';
-import Captions from './components/Captions';
-import Controls from './components/Controls/Controls';
-import StatusBar from './components/StatusBar';
+//components
+import Media from '../components/Media';
+import Captions from '../components/Captions';
+import Controls from '../components/Controls/Controls';
+import StatusBar from '../components/StatusBar';
 
-import '../../styles/main.scss';
+//context
+import {ButtonContext} from '../context/button.context';
+
+//styles
+import '../styles/main.scss';
 
 export default class AblePlayer extends React.Component {
 
@@ -29,7 +35,9 @@ export default class AblePlayer extends React.Component {
         <Captions
           captions={this.props.captions}
         />
-        <Controls />
+        <ButtonContext.Provider>
+          <Controls />
+        </ButtonContext.Provider>
         <StatusBar />
       </div>
     )
