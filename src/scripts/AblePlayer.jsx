@@ -9,10 +9,10 @@ import Controls from '../components/Controls/Controls';
 import StatusBar from '../components/StatusBar';
 
 //context
-import {ButtonContext} from '../context/button.context';
+import {ButtonsProvider} from '../context/buttons.context';
 
 //styles
-import '../styles/main.scss';
+import '../../styles/main.scss';
 
 export default class AblePlayer extends React.Component {
 
@@ -30,14 +30,12 @@ export default class AblePlayer extends React.Component {
           ref={ref => this.media = ref}
           id={this.props.id}
           source={this.props.source}
-          poster={this.props.poster}
-        />
+          poster={this.props.poster} />
         <Captions
-          captions={this.props.captions}
-        />
-        <ButtonContext.Provider>
+          captions={this.props.captions} />
+        <ButtonsProvider>
           <Controls />
-        </ButtonContext.Provider>
+        </ButtonsProvider>
         <StatusBar />
       </div>
     )
