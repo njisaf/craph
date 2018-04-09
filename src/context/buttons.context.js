@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-const ButtonsContext = React.createContext('defaultValue');
+export const ButtonsContext = React.createContext('defaultValue');
 
 export class ButtonsProvider extends React.Component {
 

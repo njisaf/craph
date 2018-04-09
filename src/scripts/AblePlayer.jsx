@@ -8,6 +8,7 @@ import Controls from '../components/Controls/Controls';
 import StatusBar from '../components/StatusBar';
 
 import {ButtonsProvider} from '../context/buttons.context';
+
 import '../../styles/main.scss';
 
 export default class AblePlayer extends React.Component {
