@@ -5,11 +5,9 @@ import {AppContainer, module, render} from 'react-hot-loader';
 import AblePlayer from './scripts/AblePlayer';
 // import LegacyVideoPlayer from './scripts/LegacyVideoPlayer';
 import 'bootstrap'; // bootstrap is required for modals
-
 import MockData from '../content/MockData.json';
 
 class App extends React.Component {
-
   render() {
     return (
       <div>
@@ -23,13 +21,17 @@ class App extends React.Component {
       </div>
     )
   }
-
 }
 
-ReactDOM.render(<AppContainer><App/></AppContainer>, document.getElementById('app'));
+ReactDOM.render(
+  <AppContainer>
+    <App />
+  </AppContainer>,
+  document.getElementById('app')
+);
 // Hot Module Replacement API
 if (module && module.hot) {
   module.hot.accept('./app', () => {
-    render(App)
+    render(App);
   });
 }
