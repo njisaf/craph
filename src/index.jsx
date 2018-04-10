@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {AppContainer, module, render} from 'react-hot-loader';
+// import {AppContainer, module, render} from 'react-hot-loader';
+import {Provider} from 'unstated';
 
 import AblePlayer from './scripts/AblePlayer';
 // import LegacyVideoPlayer from './scripts/LegacyVideoPlayer';
@@ -14,7 +15,7 @@ class App extends React.Component {
         <h1>React Able Player</h1>
         <AblePlayer
           id={MockData.id}
-          videoSource={MockData.videoSource}
+          source={MockData.source}
           poster={MockData.poster}
           captions={MockData.caption}
           />
@@ -24,14 +25,14 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  <AppContainer>
-    <App />
-  </AppContainer>,
+    <Provider>
+      <App />
+    </Provider>,
   document.getElementById('app')
 );
-// Hot Module Replacement API
-if (module && module.hot) {
-  module.hot.accept('./app', () => {
-    render(App);
-  });
-}
+// // Hot Module Replacement API
+// if (module && module.hot) {
+//   module.hot.accept('./app', () => {
+//     render(App);
+//   });
+// }

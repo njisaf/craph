@@ -27,7 +27,8 @@
     "mobx-react": "^5.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-hot-loader": "^4.0.1"
+    "react-hot-loader": "^4.0.1",
+    "unstated": "^1.2.0"
   },
   "devDependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
