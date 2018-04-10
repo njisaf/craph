@@ -12,11 +12,15 @@ export class ButtonsProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlaying: false
+      isPlaying: false,
+      actions: {
+        toggleButton: this.toggleButton
+      }
     }
   }
 
   toggleButton = (button) => {
+    console.log('DING');
     switch (button) {
       case 'Play':
         console.log('Play button toggled');
@@ -41,7 +45,7 @@ export class ButtonsProvider extends React.Component {
 export class ButtonsConsumer extends React.Component {
 
   static propTypes = {
-    children: PropTypes.node.isRequired
+    children: PropTypes.func.isRequired
   }
 
   render() {
